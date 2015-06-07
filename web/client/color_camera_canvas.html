@@ -1,0 +1,85 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BlueEye</title>
+  <link rel="stylesheet" href="assets/demo.css">
+
+  <script src="assets/tracking-min.js"></script>
+  <script src="assets/dat.gui.min.js"></script>
+  <script src="assets/stats.min.js"></script>
+  <script src="assets/color_camera_gui.js"></script>
+
+  <style>
+  video, canvas {
+    margin-left: 100px;
+    margin-top: 35px;
+    position: absolute;
+  }
+  </style>
+</head>
+<body>
+  <div class="demo-title">
+    <p>请选择你要追踪的颜色</p>
+  </div>
+
+  <div class="demo-frame">
+    <div class="demo-container">
+      <video id="video" width="600" height="450" preload autoplay loop muted controls></video>
+      <canvas id="canvas" width="600" height="450"></canvas>
+    </div>
+
+    <canvas id="canvas-video" width="640" height="480"></canvas>
+
+  </div>
+
+  <script src="/jsmpg.js"></script>
+  <script type="text/javascript">
+  // CHANGE THIS TO THE APPROPRIATE WS ADDRESS
+  var wsUrl = 'ws://dfrobot.local:8084/';
+
+  // Show loading notice
+  var canvas = document.getElementById('canvas-video');
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#333';
+  ctx.fillText('Loading...', canvas.width/2-30, canvas.height/3);
+
+  // Start the player
+  var client = new WebSocket(wsUrl);
+  var player = new jsmpeg(client, { canvas:canvas });
+  </script>
+
+  <script>
+    window.onload = function() {
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+
+      var tracker = new tracking.ColorTracker();
+
+      tracking.track('#canvas', tracker);
+
+      tracker.on('track', function(event) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        event.data.forEach(function(rect) {
+          if (rect.color === 'custom') {
+            rect.color = tracker.customColor;
+          }
+
+          context.strokeStyle = rect.color;
+          context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+          context.font = '11px Helvetica';
+          context.fillStyle = "#fff";
+          context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+          context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+        });
+      });
+
+     initGUIControllers(tracker);
+    };
+  </script>
+
+</body>
+</html>
