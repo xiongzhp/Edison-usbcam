@@ -2,22 +2,76 @@
 <html>
 <head>
   <meta name="viewport" content="initial-scale=1"/>
-  <title>edi-cam</title>
+  <title>Biosate</title>
+  <link type="text/css" rel="stylesheet" href="/materialize.css"  media="screen,projection"/> 
   <style type="text/css">
 /*	.container {
 	  margin-top: 10%;
 	  text-align: center;
 	}*/
 
-	#canvas-video {
+            
+            body {
+                background-color:#ff5252;
+                margin: 0px auto;                
+            }
+
+            #overlay {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                -o-transform : scaleX(-1);
+                -webkit-transform : scaleX(-1);
+                transform : scaleX(-1);
+                -ms-filter : fliph; /*IE*/
+                filter : fliph; /*IE*/
+                width : 600px;
+                height : 450px;
+            }
+
+            #canvas-video {
+                -o-transform : scaleX(-1);
+                -webkit-transform : scaleX(-1);
+                transform : scaleX(-1);
+                -ms-filter : fliph; /*IE*/
+                filter : fliph; /*IE*/
+                -o-border-radius:30px;
+                -webkit-border-radius:30px;
+                border-radius:30px;
+                width : 640px;
+                height : 480px;
+            }
+            #container {
+                position : relative;
+                width : 640px;
+                /*margin : 0px auto;*/
+            }
+            
+            #content {              
+                margin-left : auto;
+                margin-right : auto;
+                max-width: 640px;
+            }            
+
+/*	#canvas-video {
 	  width: 640px;
 	  height: 480px;
 	  border: 1px solid #ccc;
-	}
+	}*/
   </style>
 </head>
 <body>
-  <!-- Reference: https://github.com/phoboslab/jsmpeg/blob/master/stream-example.html -->
+
+		<nav>
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo center"><img src="/logo_small.png"><span style="position:relative; bottom:8px">Biosate by ShanghaiTech</span></a>
+              <ul id="nav-mobile" class="hide-on-med-and-down">
+                <li class="right"><a class="modal-trigger" href="#modal1"><i class="mdi-action-account-child"></i></a></li>
+                <li class="left"><a class="modal-trigger" href="#modal2"><i class="mdi-action-assignment"></i></a></li>  
+                <!-- <li class="left"><a class="modal-trigger" href="/howitworks"><i class="mdi-action-settings-applications"></i></a></li>  -->               
+              </ul>
+            </div>
+        </nav>
 
   <div class="container">
 	<!-- <iframe src="http://localhost:3000"></iframe> -->
@@ -26,11 +80,14 @@
 	  change this internal resolution to whatever the source provides. The size the
 	  canvas is displayed on the website is dictated by the CSS style.
 	-->
+
 	<canvas id="canvas-video" width="640" height="480"></canvas>
 
   </div>
 
   <script src="/jsmpg.js"></script>
+<script type="text/javascript" src="/materialize.min.js"></script>
+
   <script type="text/javascript">
 	// CHANGE THIS TO THE APPROPRIATE WS ADDRESS
 	var wsUrl = 'ws://dfrobot.local:8084/';
