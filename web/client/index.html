@@ -2,8 +2,11 @@
 <html>
 <head>
   <meta name="viewport" content="initial-scale=1"/>
-  <title>Biosate</title>
-  <link type="text/css" rel="stylesheet" href="/materialize.css"  media="screen,projection"/> 
+  <title>Colonists</title>
+  <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/> 
+
+        <script type="text/javascript" src="/jquery.min.js"></script>
+  
   <style type="text/css">
 /*	.container {
 	  margin-top: 10%;
@@ -64,7 +67,7 @@
 
 		<nav>
             <div class="nav-wrapper">
-              <a href="#" class="brand-logo center"><img src="/logo_small.png"><span style="position:relative; bottom:8px">Biosate by ShanghaiTech</span></a>
+              <a href="#" class="brand-logo center"><img src="/logo_small.png"><span style="position:relative; bottom:8px">Colonists From ShanghaiTech</span></a>
               <ul id="nav-mobile" class="hide-on-med-and-down">
                 <li class="right"><a class="modal-trigger" href="#modal1"><i class="mdi-action-account-child"></i></a></li>
                 <li class="left"><a class="modal-trigger" href="#modal2"><i class="mdi-action-assignment"></i></a></li>  
@@ -85,6 +88,75 @@
 
   </div>
 
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s4">
+              <img src="images/xiong1.jpg" alt="" class="circle responsive-img"> 
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                <span class="mdi-social-person red-text accent-2"> Name:  </span><a href="http://www.emonitor.me/ErikXiong.html">Erik Xiong</a><br>
+                <span class="mdi-social-school red-text accent-2"> Company:  </span>SIMM, Chinese Academy of Sciences<br>
+                <span class="mdi-action-book red-text accent-2"> Role:  </span>Engineer, Data Science Graduate Student<br>
+                <span class="mdi-action-extension red-text accent-2"> Skills &amp; Hobbies:  </span>Data Visualization, Nodejs, Computer Vision, Raspberry Pi, Intel Edison, Arduino<br>
+                <span class="mdi-communication-email red-text accent-2"> Email:  </span>xiongzhp@outlook.com<br>
+              </span>
+            </div>
+          </div>
+
+          <div class="row valign-wrapper">
+            <div class="col s4">
+              <img src="images/Tao.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                <span class="mdi-social-person red-text accent-2"> Name:  </span>Tony Zhong<br>
+                <span class="mdi-social-school red-text accent-2"> Company:  </span>SIMM, Chinese Academy of Sciences<br>
+                <span class="mdi-action-book red-text accent-2"> Role:  </span>Designer, Pharmaceutics Graduate Student<br>
+                <span class="mdi-action-extension red-text accent-2"> Skills &amp; Hobbies:  </span>Google Materia Design, SketchUp, 3D printing, Solidworks, AI, Final Cut<br>
+                <span class="mdi-communication-email red-text accent-2"> Email:  </span>575313339@qq.com
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">close</a>
+    </div>
+</div>
+    <!-- Modal Structure -->
+<div id="modal2" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h5>Instructions</h5>
+      <p>1) Allow the request to use your webcam (if the request didnot pop up, close current tab, reload the page in a different tab) .</p>
+      <p>2) Click Start!</p>
+      <p>3) Our program will capture your face and rate your emotions in real-time.</p>
+      <p>4) Try to move your head when the face shape model does not fit your face well.</p>
+      <video width=100% class="responsive-video" controls autoplay="autoplay" loop="loop">
+        <source src="demo.mp4" type="video/mp4">
+      </video>
+      <a href="http://www.emonitor.me/howitworks">Take a look at how it works.</a>      
+      <h5>What we have Done</h5>
+      <p>This is a javascript implementation of face tracking and emotion detection, we built it with nodejs, emit extreme emotions with socket.io and store realtime quantified emotion data into mongodb. </p>
+      <p>In addition, we figure out the mean of each quantified emotion(unhappy, happy, surprise) and the counts of extreme emotions in every minute, hours, or time span you set using mapreduce. </p>
+      <p>Above all, we induced a new concept, Emotion Index, to measure the level of your emotions, which is calculated in combination of the quantified mean emotions and the counts of extreme emotions.</p><br>
+      <h5>To-Do</h5>      
+      <p>We made it run smoothly on Intel Edison and Raspeberry Pi, and we will get use of GPIO to make the hardware interact with you whenever extreme emotions are detected.</p>
+      <img src="images/edison.jpg" style="max-width:100%;">
+      <p>We also plan to make an easy access hardware, which is capable of collecting as much emotion data as possible. For one thing, with the hardware, we can easily collect emotion data from people with psychological problems every day in psychology research, so we can get better understanding of mental disorders, like autism, depression and anxiety. For another, we can apply it in shopping mall for realtime feedback of products from visitors.</p>
+      <p>What's your ideas? Contact us xiongzhp@outlook.com.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
+
+
+
   <script src="/jsmpg.js"></script>
 <script type="text/javascript" src="/materialize.min.js"></script>
 
@@ -102,5 +174,14 @@
 	var client = new WebSocket(wsUrl);
 	var player = new jsmpeg(client, { canvas:canvas });
   </script>
+
+<script>
+ $(document).ready(function(){
+    $('ul.tabs').tabs();
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>
+
 </body>
 </html>
